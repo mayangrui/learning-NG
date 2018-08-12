@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>directive</title>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.10/angular.min.js"></script>
+    <script src="https://cdn.bootcss.com/angular.js/1.6.10/angular-sanitize.min.js"></script>
+    <script src="directive.js"></script>
+</head>
+<style>
+    .blur {
+        background-color: red;
+    }
+
+    .blurnot {
+        background-color: gold;
+    }
+
+    .strike {
+        text-decoration: line-through;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .has-error {
+        color: red;
+        background-color: yellow;
+    }
+
+    .orange {
+        color: orange;
+    }
+    .base-class {
+        transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    }
+    .base-class.my-class {
+        color: red;
+        font-size: 3em;
+    }
+</style>
+<body ng-controller="demoCtrl">
+<!--input checkbox输入框api-->
+<form name="myForm">
+    <label>Value1:
+        <input type="checkbox" ng-model="checkboxModel.value1">
+    </label><br/>
+    <label>Value2:
+        <input type="checkbox" ng-model="checkboxModel.value2"
+               ng-true-value="'选中了啊啊啊啊啊'" ng-false-value="'吾问无为谓'">
+    </label><br/>
+    <tt>value1 = {{checkboxModel.value1}}</tt><br/>
+    <tt>value2 = {{checkboxModel.value2}}</tt><br/>
+</form>
+<!--input date-->
+<form name="myForm">
+    <label for="exampleInput">Pick a date in 2013:</label>
+    <input type="date" id="exampleInput" name="input" ng-model="example.value"
+           placeholder="yyyy-MM-dd" min="2013-01-01" max="2018-12-31" required/>
+    <div role="alert">
+     <span class="error" ng-show="myForm.input.$error.required">
+         Required!</span>
+        <span class="error" ng-show="myForm.input.$error.date">
+         Not a valid date!</span>
+    </div>
+    <tt>value = {{example.value | date: "yyyy-MM-dd"}}</tt><br/>
+    <tt>myForm.input.$valid = {{myForm.input.$valid}}</tt><br/>
+    <tt>myForm.input.$error = {{myForm.input.$error}}</tt><br/>
+    <tt>myForm.$valid = {{myForm.$valid}}</tt><br/>
+    <tt>myForm.$error.required = {{!!myForm.$error.required}}</tt><br/>
+</form>
+<!--input range-->
+<form name="myForm1">
+
+    Model as range: <input type="range" name="range" ng-model="range.value" min="{{range.min}}" max="{{range.max}}">
+    <hr>
+    Model as number: <input type="number" ng-model="range.value"><br>
+    Min: <input type="number" ng-model="range.min"><br>
+    Max: <input type="number" ng-model="range.max"><br>
+    value = <code>{{range.value}}</code><br/>
+    myForm.range.$valid = <code>{{myForm.range.$valid}}</code><br/>
+    myForm.range.$error = <code>{{myForm.range.$error}}</code>
+</form>
+<!--ng-bind-html和ng-bind-template-->
+<div ng-bind-html="myHTML">
+</div>
+<div ng-bind-template="我的名字是{{name}}-我今年{{age}}岁"></div>
+<!--ng-blur的用法-->
+<input type="text" ng-blur="blur($event)" class="blur">
+<!--ng-change-->
+<input type="checkbox" ng-model="confirmed" ng-change="ngchange()">
+<tt>{{confirmed}}</tt>
+<tt>{{counter}}</tt>
+<!--ng-checked-->
+
+<!--ng-class-->
+<p ng-class="{strike: deleted, bold: important, 'has-error': error}">Map Syntax Example</p>
+<label>
+    <input type="checkbox" ng-model="deleted">
+    deleted (apply "strike" class)
+</label><br>
+<label>
+    <input type="checkbox" ng-model="important">
+    important (apply "bold" class)
+</label><br>
+<label>
+    <input type="checkbox" ng-model="error">
+    error (apply "has-error" class)
+</label>
+<hr>
+<p ng-class="style">Using String Syntax</p>
+<input type="text" ng-model="style"
+       placeholder="Type: bold strike red" aria-label="Type: bold strike red">
+<hr>
+<p ng-class="[style1, style2, style3]">Using Array Syntax</p>
+<input ng-model="style1"
+       placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red"><br>
+<input ng-model="style2"
+       placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red 2"><br>
+<input ng-model="style3"
+       placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red 3"><br>
+<hr>
+<hr>
+<p ng-class="[style4, {orange: warning}]">Using Array and Map Syntax</p>
+<input ng-model="style4" placeholder="Type: bold, strike" aria-label="Type: bold, strike"><br>
+<label><input type="checkbox" ng-model="warning"> warning (apply "orange" class)</label>
+
+<!--ng-class animation-->
+<input id="setbtn" type="button" value="set" ng-click="myVar='my-class'">
+<input id="clearbtn" type="button" value="clear" ng-click="myVar=''">
+<br>
+<span class="base-class" ng-class="myVar">Sample Text</span>
+
+<!--ng-copy-->
+<input type="text" ng-model="value1" ng-init="copied=false; value='copy me'" ng-copy="">
+</body>
+</html>
