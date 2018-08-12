@@ -1,0 +1,25 @@
+.bubble {
+    position: relative;
+    padding: 15px;
+    margin: 1em 0em 3em;
+    width: 300px;
+    line-height: 1.2;
+    text-align: center;
+    color: #fff;
+    background: #075698;
+    border-radius: 10px;
+    background:-webkit-gradient(linear, left top, left bottom, from(#f9d835), to(#f3961c));
+}
+.bubble:after{
+    content:'\00a0';
+    width:0;
+    height:0;
+    display: block;
+    border-style:solid;
+    position: absolute;
+    border-width:15px;
+    border-color:#f3961c transparent transparent transparent;
+    z-index:-1;
+    bottom:-30px;
+    left:50px;
+}
